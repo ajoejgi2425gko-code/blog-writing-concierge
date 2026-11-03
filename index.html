@@ -13,15 +13,23 @@
 <div class="refgrid"><div><img src="./references/kotopapa.jpg" alt="ことパパの基準画像"><label>ことパパ</label><a href="./references/kotopapa.jpg" download="kotopapa-reference.jpg">基準画像を保存</a></div><div><img src="./references/mama.png" alt="妻の基準画像"><label>妻</label><a href="./references/mama.png" download="mama-reference.png">基準画像を保存</a></div><div><img src="./references/daughter.png" alt="娘の基準画像"><label>娘</label><a href="./references/daughter.png" download="daughter-reference.png">基準画像を保存</a></div></div>
 <div class="actions" style="margin-top:15px"><button id="extractImages">H2を抽出して画像指示を作成</button><button id="copyAllImages" class="secondary">全画像指示をコピー</button></div><p id="imageStatus" class="status" role="status" aria-live="polite"></p><div id="imageResults"></div><p class="hint">各画像は16:9・1枚ずつの生成を指定します。生成後は画像を個別に保存し、WordPressの該当H2直下へ挿入してください。実際の画像URL・メディアIDが決まるまでHTMLに架空の画像URLを追加しません。</p></section>
 
-<section class="panel" id="eyecatchAssistant"><h2>6. アイキャッチ画像制作アシスタント</h2>
-<p class="hint">記事全体の魅力を1枚で伝えるアイキャッチ画像の生成指示と、WordPress登録用のファイル名・alt・タイトルをまとめて作成します。H2画像とは別の構図にします。画像はAI側で生成し、基準画像も必要に応じて添付してください。</p>
-<div class="grid"><div class="field"><label for="eyeTitle">記事タイトル（未入力なら上の記事タイトルを使用）</label><input id="eyeTitle" placeholder="例：子連れで楽しむリゾナーレ那須2日目"></div><div class="field"><label for="eyePeople">登場人物</label><select id="eyePeople"><option value="auto">ブログと記事から自動判断</option><option value="family">家族3人</option><option value="father">ことパパのみ</option><option value="mother">妻のみ</option><option value="daughter">娘のみ</option><option value="none">人物なし</option></select></div></div>
-<div class="grid"><div class="field"><label for="eyeType">デザイン方向</label><select id="eyeType"><option value="auto">記事に合わせて自動提案（推奨）</option><option value="scene">印象的な体験シーン</option><option value="editorial">分かりやすい編集イラスト・象徴的な構図</option></select></div><div class="field"><label for="eyeText">画像内の文字</label><select id="eyeText"><option value="none" selected>文字なし（おすすめ・タイトル変更に強い）</option><option value="short">短いキャッチコピーのみ（AIに正確性の確認を依頼）</option></select></div></div>
-<div class="field"><label for="eyeContext">アイキャッチで強調したい内容（任意）</label><textarea id="eyeContext" rows="3" placeholder="例：娘と雪遊びを楽しむ家族の表情。ホテル名や料金など未確認の文字は描かない"></textarea></div>
-<div class="field"><label for="eyeArticle">記事本文・完成原稿（任意・未入力なら上の画像用原稿／元原稿を使用）</label><textarea id="eyeArticle" rows="5" placeholder="完成記事のHTMLや本文を貼り付け。長文でも要点を抽出して指示を作ります"></textarea></div>
-<div class="actions"><button id="makeEyecatch">アイキャッチ指示を生成</button><button id="copyEyecatch" class="secondary">指示をコピー</button><button id="saveEyecatch" class="secondary">テキスト保存</button></div><p id="eyeStatus" class="status" role="status" aria-live="polite"></p>
-<div class="field"><label for="eyeResult">画像生成AIへの指示文（編集可能）</label><textarea id="eyeResult" rows="14" placeholder="ここにアイキャッチの生成指示とWordPress登録情報の依頼が表示されます"></textarea></div>
-<p class="hint">横長16:9・1枚のみ。ファイル名・alt・WordPressタイトルを画像生成後に提案します。キャプションは原則不要です。実際の画像と一致しているか公開前に確認してください。画像生成AIへは必要な基準画像を別途添付してください。</p></section>
+<section class="panel" id="eyecatchAssistant"><h2>6. アイキャッチ制作アシスタント v6</h2>
+<p class="hint">実際の写真を使ったアイキャッチを<strong>この画面で直接制作・保存</strong>できます。元写真は加工・上書きしません。写真がない場合は従来のAI画像生成指示も使えます。</p>
+<div class="grid"><div class="field"><label for="eyeTitle">記事タイトル（未入力なら上の記事タイトルを使用）</label><input id="eyeTitle" placeholder="例：リゾナーレ那須 子連れ宿泊レポート"></div><div class="field"><label for="eyeBackground">背景方式</label><select id="eyeBackground"><option value="photo" selected>写真1枚（推奨）</option><option value="collage">複数写真のコラージュ（AI用指示）</option><option value="ai">AIで背景を生成（従来方式）</option></select></div></div>
+<div class="field"><label for="eyeFile">背景に使う実際の写真（JPG / PNG / WebP）</label><input id="eyeFile" type="file" accept="image/jpeg,image/png,image/webp"><p class="hint">選択写真は端末内だけで読み込みます。元写真は変更せず、完成したアイキャッチを別ファイルで保存します。</p></div>
+<div class="grid"><div class="field"><label for="eyeTextMode">文字の方針</label><select id="eyeTextMode"><option value="short" selected>短いキャッチコピー（推奨）</option><option value="title">記事タイトルを使用</option><option value="none">文字なし</option></select></div><div class="field"><label for="eyePlacement">文字の配置</label><select id="eyePlacement"><option value="auto" selected>自動（写真の明暗に合わせる）</option><option value="bottom">下部の半透明帯</option><option value="center">中央</option><option value="top">上部の半透明帯</option></select></div></div>
+<div class="field"><label for="eyeCopy">画像に載せる文字（編集可能・短め推奨）</label><input id="eyeCopy" maxlength="100" placeholder="例：子連れで楽しむ那須の2日間"></div>
+<div class="grid"><div class="field"><label for="eyeZoom">写真の拡大率：<output id="eyeZoomLabel">100%</output></label><input id="eyeZoom" type="range" min="100" max="220" value="100" step="5"></div><div class="field"><label for="eyeHorizontal">左右の位置：<output id="eyeHorizontalLabel">中央</output></label><input id="eyeHorizontal" type="range" min="0" max="100" value="50"></div><div class="field"><label for="eyeVertical">上下の位置：<output id="eyeVerticalLabel">中央</output></label><input id="eyeVertical" type="range" min="0" max="100" value="50"></div><div class="field"><label for="eyeFont">文字の大きさ：<output id="eyeFontLabel">標準</output></label><input id="eyeFont" type="range" min="34" max="84" value="56"></div></div>
+<div class="field"><label for="eyeCanvas">完成イメージ（16:9・1280×720）</label><canvas id="eyeCanvas" width="1280" height="720" style="display:block;width:100%;height:auto;border-radius:12px;border:1px solid #dbe3ee;background:#dce4ee" aria-label="アイキャッチ画像のプレビュー"></canvas></div>
+<div class="actions"><button id="eyeAutoCopy">記事タイトルから短い文字を仮提案</button><button id="eyeSavePng">PNGで画像保存</button><button id="eyeSaveJpg" class="secondary">JPEGで画像保存</button><button id="eyeMakeSeo" class="secondary">登録情報を作成</button></div><p id="eyePhotoStatus" class="status" role="status" aria-live="polite"></p>
+<div class="grid"><div class="field"><label for="eyeFilename">ファイル名（拡張子なし・英小文字推奨）</label><input id="eyeFilename" placeholder="例：risonare-nasu-family-trip-eyecatch"></div><div class="field"><label for="eyeAlt">代替テキスト（alt・実際の写真を確認して編集）</label><textarea id="eyeAlt" rows="3" placeholder="写真に実際に写っているものを説明してください"></textarea></div><div class="field"><label for="eyeWpTitle">WordPress画像タイトル</label><input id="eyeWpTitle" placeholder="例：リゾナーレ那須の家族旅行アイキャッチ"></div><div class="field"><label for="eyeCaption">キャプション（アイキャッチは原則空欄）</label><input id="eyeCaption" placeholder="原則なし"></div></div>
+<div class="actions"><button id="eyeCopySeo" class="secondary">登録情報をコピー</button><button id="eyeSeoAi" class="secondary">AIに登録情報を考えてもらう指示</button></div><div class="field"><label for="eyeSeoPrompt">AIへの登録情報依頼（必要な場合のみ）</label><textarea id="eyeSeoPrompt" rows="5" placeholder="AIに写真を別途添付して使用してください"></textarea></div>
+<details><summary><strong>従来のAIアイキャッチ生成機能（写真なし／コラージュ用）</strong></summary>
+<div class="grid"><div class="field"><label for="eyePeople">登場人物</label><select id="eyePeople"><option value="auto">ブログと記事から自動判断</option><option value="family">家族3人</option><option value="father">ことパパのみ</option><option value="mother">妻のみ</option><option value="daughter">娘のみ</option><option value="none">人物なし</option></select></div><div class="field"><label for="eyeType">デザイン方向</label><select id="eyeType"><option value="auto">記事に合わせて自動提案</option><option value="scene">印象的な体験シーン</option><option value="editorial">編集イラスト</option></select></div></div>
+<div class="field"><label for="eyeText">AI生成画像内の文字</label><select id="eyeText"><option value="none">文字なし</option><option value="short" selected>短いキャッチコピー</option></select></div>
+<div class="field"><label for="eyeContext">強調したい内容（任意）</label><textarea id="eyeContext" rows="3"></textarea></div><div class="field"><label for="eyeArticle">記事本文（任意）</label><textarea id="eyeArticle" rows="5"></textarea></div>
+<div class="actions"><button id="makeEyecatch">AI画像生成指示を作成</button><button id="copyEyecatch" class="secondary">コピー</button><button id="saveEyecatch" class="secondary">テキスト保存</button></div><p id="eyeStatus" class="status" role="status" aria-live="polite"></p><div class="field"><label for="eyeResult">画像生成AIへの指示文</label><textarea id="eyeResult" rows="10"></textarea></div></details>
+<p class="hint">写真1枚モードは外部AIを使わず画像を保存できます。自動配置は明暗を参考にした簡易判定です。altは写真の実際の内容を確認して確定してください。元画像のEXIF情報は書き出し画像に引き継がれません。</p></section>
 
 <section class="panel" id="photoSeo"><h2>7. ブログ画像SEOアシスタント（一般写真・その他の画像）</h2>
 <p class="hint">旅行写真、ホテル客室、料理、資格教材など、H2挿絵以外の画像をまとめて扱います。写真を選び、記事の文脈を添えて、AIにファイル名・alt・タイトル・キャプションを提案してもらう依頼文を作成します。</p>
@@ -122,4 +130,45 @@ function makeEyecatchPrompt(){
 $('makeEyecatch').addEventListener('click',makeEyecatchPrompt);
 $('copyEyecatch').addEventListener('click',async()=>{if(!value('eyeResult')){ $('eyeStatus').textContent='先に指示を生成してください。';return}try{await navigator.clipboard.writeText($('eyeResult').value);$('eyeStatus').textContent='コピーしました。'}catch(e){$('eyeResult').focus();$('eyeResult').select();$('eyeStatus').textContent='自動コピーできませんでした。選択した文章を手動でコピーしてください。'}});
 $('saveEyecatch').addEventListener('click',()=>{if(!value('eyeResult')){$('eyeStatus').textContent='先に指示を生成してください。';return}const blob=new Blob(['\ufeff'+$('eyeResult').value],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='eyecatch-image-prompt.txt';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);$('eyeStatus').textContent='テキストを保存しました。'});
+
+// v6: client-side photo-based eyecatch. Never writes to or modifies the source File.
+(()=>{
+const $e=id=>document.getElementById(id),canvas=$e('eyeCanvas'),ctx=canvas.getContext('2d');
+let photo=null, photoUrl=null, selectedName='';
+const val=id=>$e(id).value;
+const safeSlug=str=>String(str||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,85);
+const title=()=>val('eyeTitle').trim()||val('topic').trim()||'ブログ記事';
+function words(){if(val('eyeTextMode')==='none')return '';if(val('eyeTextMode')==='title')return title();return val('eyeCopy').trim();}
+function draw(){
+const w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#dfe7f1';ctx.fillRect(0,0,w,h);
+if(photo){const scale=Math.max(w/photo.naturalWidth,h/photo.naturalHeight)*(Number(val('eyeZoom'))/100);const dw=photo.naturalWidth*scale,dh=photo.naturalHeight*scale;const x=(w-dw)*Number(val('eyeHorizontal'))/100,y=(h-dh)*Number(val('eyeVertical'))/100;ctx.drawImage(photo,x,y,dw,dh)}else{ctx.fillStyle='#344b6c';ctx.font='32px sans-serif';ctx.textAlign='center';ctx.fillText('背景写真を選択してください',w/2,h/2)}
+const text=words();if(!text)return;
+let place=val('eyePlacement');if(place==='auto'){
+// Prefer the top or bottom with the lower average sampled brightness contrast complexity.
+const data=ctx.getImageData(0,0,w,h).data;
+const score=(start,end)=>{let sum=0,sum2=0,n=0;for(let y=start;y<end;y+=20)for(let x=20;x<w;x+=20){const i=(y*w+x)*4;const v=(data[i]*.299+data[i+1]*.587+data[i+2]*.114);sum+=v;sum2+=v*v;n++}return sum2/n-(sum/n)**2};
+place=score(20,240)<=score(480,700)?'top':'bottom';}
+const font=Number(val('eyeFont'));ctx.font=`bold ${font}px system-ui, "Noto Sans JP", sans-serif`;
+const maxWidth=w-130, lines=[];let line='';for(const char of Array.from(text)){if(ctx.measureText(line+char).width>maxWidth&&line){lines.push(line);line=char}else line+=char}if(line)lines.push(line);
+const visible=lines.slice(0,4),lh=font*1.32,block=visible.length*lh+65;
+let centerY=place==='top'?Math.max(block/2+12,125):place==='bottom'?h-block/2-15:h/2;
+const bandTop=Math.max(0,centerY-block/2),bandHeight=Math.min(h-bandTop,block);
+ctx.fillStyle='rgba(10,24,43,.67)';ctx.fillRect(0,bandTop,w,bandHeight);
+ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#ffffff';ctx.shadowColor='rgba(0,0,0,.6)';ctx.shadowBlur=5;
+visible.forEach((line,i)=>ctx.fillText(line,w/2,centerY+(i-(visible.length-1)/2)*lh,maxWidth));ctx.shadowBlur=0;
+}
+function status(message){$e('eyePhotoStatus').textContent=message}
+$e('eyeFile').addEventListener('change',()=>{const f=$e('eyeFile').files[0];if(photoUrl){URL.revokeObjectURL(photoUrl);photoUrl=null}photo=null;if(!f){draw();return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>30*1024*1024){status('JPG・PNG・WebP、30MB以下の写真を選んでください。');draw();return}photoUrl=URL.createObjectURL(f);const img=new Image();img.onload=()=>{photo=img;selectedName=f.name;draw();status('写真を読み込みました。元写真は変更されません。')};img.onerror=()=>{status('画像を読み込めませんでした。');URL.revokeObjectURL(photoUrl);photoUrl=null};img.src=photoUrl});
+['eyeTextMode','eyeCopy','eyePlacement','eyeZoom','eyeHorizontal','eyeVertical','eyeFont','eyeTitle'].forEach(id=>$e(id).addEventListener('input',()=>{draw();$e('eyeZoomLabel').textContent=val('eyeZoom')+'%';$e('eyeHorizontalLabel').textContent=val('eyeHorizontal')+'%';$e('eyeVerticalLabel').textContent=val('eyeVertical')+'%';$e('eyeFontLabel').textContent=val('eyeFont')+'px'}));
+$e('eyeAutoCopy').addEventListener('click',()=>{const t=title().replace(/[｜|]/g,' ').trim();$e('eyeCopy').value=Array.from(t).slice(0,24).join('');$e('eyeTextMode').value='short';draw();status('記事タイトルから仮の文字を入力しました。必要に応じて短く編集してください。')});
+function save(mime,ext){if(!photo){status('先に背景写真を選択してください。');return}draw();const filename=(safeSlug(val('eyeFilename'))||safeSlug(selectedName.replace(/\.[^.]+$/,''))||'blog-eyecatch')+'.'+ext;canvas.toBlob(blob=>{if(!blob){status('画像の保存に失敗しました。');return}const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);status(filename+' を保存しました。元写真は変更していません。')},mime,.92)}
+$e('eyeSavePng').addEventListener('click',()=>save('image/png','png'));
+$e('eyeSaveJpg').addEventListener('click',()=>save('image/jpeg','jpg'));
+function metadata(){return `ファイル名：${val('eyeFilename')||'（入力してください）'}\n代替テキスト（alt）：${val('eyeAlt')||'（実際の写真を確認して入力してください）'}\nWordPress画像タイトル：${val('eyeWpTitle')||'（入力してください）'}\nキャプション：${val('eyeCaption')||'なし'}`}
+$e('eyeMakeSeo').addEventListener('click',()=>{if(!val('eyeFilename'))$e('eyeFilename').value=safeSlug(selectedName.replace(/\.[^.]+$/,''))+'-eyecatch'||'blog-eyecatch';if(!val('eyeWpTitle'))$e('eyeWpTitle').value=title()+'｜アイキャッチ';status('ファイル名と画像タイトルの仮案を入力しました。altは写真の内容を確認して記入してください。')});
+$e('eyeCopySeo').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(metadata());status('登録情報をコピーしました。')}catch(e){status('コピーできませんでした。ブラウザの権限を確認してください。')}});
+$e('eyeSeoAi').addEventListener('click',()=>{$e('eyeSeoPrompt').value=`あなたはWordPressブログの画像SEO編集者です。これから添付する【実際の写真】を確認し、記事の文脈と照らして次の登録情報を作ってください。\n【記事タイトル】${title()}\n【元写真ファイル名】${selectedName||'未選択'}\n【画像に重ねる文字】${words()||'なし'}\n【条件】元写真の内容を捏造しない。ファイル名は英小文字・数字・ハイフンで簡潔に（拡張子は保存形式に合わせる）。altは画像の実際の内容を自然な日本語で説明し、画像に載せた文字が重要なら文脈に応じて含める。画像タイトルは日本語で簡潔に。キャプションはアイキャッチのため原則不要。\n【出力】①ファイル名 ②alt ③WordPress画像タイトル ④キャプションの要否。画像が添付されていない場合はaltを確定しない。`;status('AI向け依頼文を作りました。写真をAI側に別途添付してください。')});
+$e('eyeBackground').addEventListener('change',()=>{status(val('eyeBackground')==='photo'?'写真を選んで制作してください。':'コラージュ・AI背景の場合は下の従来のAI画像生成指示を利用してください。')});
+draw();
+})();
 </script></body></html>
